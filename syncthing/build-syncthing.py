@@ -105,6 +105,9 @@ for target in BUILD_TARGETS:
         get_ndk_home(), "toolchains", "llvm", "prebuilt",
         PLATFORM_DIRS[platform.system()], "bin",
         target['cc'].format(min_sdk))
+    # Set EXTRA_LDFLAGS to bypass Go 1.23+ linkname restrictions
+    # This is required for github.com/wlynxg/anet which uses //go:linkname
+    environ['EXTRA_LDFLAGS'] = '-checklinkname=0'
     subprocess.check_call(
         ['go', 'run', 'build.go', '-goos', 'android',
          '-goarch', target['goarch'], '-cc', cc,
