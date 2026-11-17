@@ -88,9 +88,11 @@ follow them separately.
 3. Navigate inside `syncthing-android`, then build the APK file with
    ```
    ./gradlew buildNative
-   ./gradlew assembleDebug
+   ./gradlew assembleStandardDebug
    ```
-4. Once completed, `app-debug.apk` will be present inside `app/build/outputs/apk/debug`.
+4. Once completed, `app-standard-debug.apk` will be present inside `app/build/outputs/apk/standard/debug`.
+   Use `assembleLegacyDebug` for the `legacy` flavor (targets API 28, which gives
+   access to `/mnt/media_rw` on some devices).
 
 **NOTE:** On Windows, you must use the Command Prompt (and not PowerShell) to
 compile. When doing so, in the commands replace all forward slashes `/` with

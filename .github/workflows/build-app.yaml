@@ -31,8 +31,8 @@ jobs:
 
       - uses: actions/upload-artifact@v4
         with:
-          name: syncthing-android-debug.apk
-          path: app/build/outputs/apk/debug/app-debug.apk
+          name: syncthing-android-debug-apks
+          path: app/build/outputs/apk/*/debug/*.apk
 
       - uses: actions/upload-artifact@v4
         with:

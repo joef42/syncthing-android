@@ -44,10 +44,24 @@ android {
         applicationId = "com.nutomic.syncthingandroid"
         minSdk = 21
         targetSdk = 33
-        versionCode = 4400
-        versionName = "2.1.7"
+        versionCode = 4401
+        versionName = "2.1.8-rc.1"
         testApplicationId = "com.nutomic.syncthingandroid.test"
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+    }
+
+    // "legacy" targets API 28 so Android treats it as a legacy storage app,
+    // which (unlike the standard build) gets access to /mnt/media_rw.
+    // Same applicationId and signing key, so the two can replace each other.
+    flavorDimensions += "storage"
+    productFlavors {
+        create("standard") {
+            dimension = "storage"
+        }
+        create("legacy") {
+            dimension = "storage"
+            targetSdk = 28
+        }
     }
 
     signingConfigs {
@@ -113,7 +127,7 @@ tasks.register<Delete>("deleteUnsupportedPlayTranslations") {
 }
 
 project.afterEvaluate {
-    android.buildTypes.forEach {
+    android.applicationVariants.forEach {
         tasks.named("merge${it.name.capitalized()}JniLibFolders") {
             dependsOn(":syncthing:buildNative")
         }
